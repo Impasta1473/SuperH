@@ -557,7 +557,7 @@ class Mario {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { // falling
                     if ((entity instanceof Ground || entity instanceof Brick || entity instanceof Block || entity instanceof Tube || entity instanceof SideTube) // landing
-                        && (that.lastBB.bottom) <= entity.BB.top + 5) { // was above last tick (added tolerance of 5 pixels)
+                        && (that.lastBB.bottom) <= entity.BB.top) { // was above last tick
                         if (that.size === 0 || that.size === 3) { // small
                             that.y = entity.BB.top - PARAMS.BLOCKWIDTH;
                         } else { // big
@@ -592,7 +592,7 @@ class Mario {
                 }
                 else if (that.velocity.y < 0) { // jumping
                     if ((entity instanceof Brick) // hit ceiling
-                        && (that.lastBB.top) >= entity.BB.bottom - 5) { // was below last tick (added tolerance)
+                        && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
 
                         // Check for center collision with brick
                         if (that.BB.collide(entity.leftBB) && that.BB.collide(entity.rightBB)) {
