@@ -127,7 +127,7 @@ class Mario {
         else {
             if (this.game.down) // big mario is crouching
                 this.BB = new BoundingBox(this.x, this.y + PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-            else 
+            else
                 this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH * 2);
         }
     };
@@ -323,11 +323,11 @@ class Mario {
 
                     if (this.game.A) { // jump
                         if (Math.abs(this.velocity.x) < 16) {
-                            this.velocity.y = -240;
+                            this.velocity.y = -280;
                             this.fallAcc = STOP_FALL;
                         }
                         else if (Math.abs(this.velocity.x) < 40) {
-                            this.velocity.y = -240;
+                            this.velocity.y = -280;
                             this.fallAcc = WALK_FALL;
                         }
                         else {
@@ -429,6 +429,13 @@ class Mario {
 
             // Update Y position
             this.y += this.velocity.y * TICK * PARAMS.SCALE;
+
+            // Apply left boundary constraint
+            if (this.x < this.game.camera.x) {
+                this.x = this.game.camera.x;
+                this.velocity.x = Math.max(0, this.velocity.x);
+            }
+
             this.updateLastBB();
             this.updateBB();
             // Handle vertical collisions
